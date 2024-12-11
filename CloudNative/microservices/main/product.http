@@ -1,0 +1,33 @@
+GET http://localhost:5009/api/products
+
+###
+
+GET http://localhost:5009/api/products/2
+
+###
+
+POST http://localhost:5009/api/products
+Content-Type: application/json
+
+{
+    "id": 5,
+    "name": "Product D",
+    "price": 123.99
+}
+
+
+###
+
+PUT http://localhost:5009/api/products/5
+Content-Type: application/json
+
+{
+    "id": 6,
+    "name": "Product E",
+    "price": 133.99
+}
+
+###
+
+DELETE http://localhost:5009/api/products/5
+
