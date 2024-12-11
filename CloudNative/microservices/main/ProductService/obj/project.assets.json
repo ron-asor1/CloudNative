@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\dev\\cloudNative\\microservices\\lecture69\\ProductService\\ProductService.csproj",
+      "projectUniqueName": "D:\\dev\\CloudNative\\microservices\\main\\ProductService\\ProductService.csproj",
       "projectName": "ProductService",
-      "projectPath": "D:\\dev\\cloudNative\\microservices\\lecture69\\ProductService\\ProductService.csproj",
+      "projectPath": "D:\\dev\\CloudNative\\microservices\\main\\ProductService\\ProductService.csproj",
       "packagesPath": "C:\\Users\\Ron\\.nuget\\packages\\",
-      "outputPath": "D:\\dev\\cloudNative\\microservices\\lecture69\\ProductService\\obj\\",
+      "outputPath": "D:\\dev\\CloudNative\\microservices\\main\\ProductService\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Ron\\AppData\\Roaming\\NuGet\\NuGet.Config",

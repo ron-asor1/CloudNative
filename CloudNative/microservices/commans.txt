@@ -2,3 +2,7 @@ Commands
 
 dotnet new web -n ProductService
 dotnet run
+
+endpoints:
+
+http://localhost:
