@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\dev\\CloudNative\\microservices\\main\\ProductService\\ProductService.csproj": {}
+    "D:\\CloudNative\\dev\\CloudNative\\microservices\\main\\ProductService\\ProductService.csproj": {}
   },
   "projects": {
-    "D:\\dev\\CloudNative\\microservices\\main\\ProductService\\ProductService.csproj": {
+    "D:\\CloudNative\\dev\\CloudNative\\microservices\\main\\ProductService\\ProductService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\dev\\CloudNative\\microservices\\main\\ProductService\\ProductService.csproj",
+        "projectUniqueName": "D:\\CloudNative\\dev\\CloudNative\\microservices\\main\\ProductService\\ProductService.csproj",
         "projectName": "ProductService",
-        "projectPath": "D:\\dev\\CloudNative\\microservices\\main\\ProductService\\ProductService.csproj",
+        "projectPath": "D:\\CloudNative\\dev\\CloudNative\\microservices\\main\\ProductService\\ProductService.csproj",
         "packagesPath": "C:\\Users\\Ron\\.nuget\\packages\\",
-        "outputPath": "D:\\dev\\CloudNative\\microservices\\main\\ProductService\\obj\\",
+        "outputPath": "D:\\CloudNative\\dev\\CloudNative\\microservices\\main\\ProductService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Ron\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Ron\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,7 +36,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -64,7 +62,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

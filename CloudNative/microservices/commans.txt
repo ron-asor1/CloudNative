@@ -6,3 +6,14 @@ dotnet run
 endpoints:
 
 http://localhost:
+
+
+##container
+container flow 
+Write dockerFile
+Build docker image
+run docker container
+test run locally
+tag docker container
+publish image to regsitrey such as dockrHub
+deploy to cloud
