@@ -9,6 +9,17 @@ http://localhost:
 
 
 ##container
+
+Run on same level as dockerfile:
+    docker build -t productservice .
+See list of images
+    docker images
+run docker images   
+    docker run -d -p 8080:80 --name productservicecontainer productservice
+run docker images interactive mode
+    docker run -it --rm -p 8080:8080 --name productservicecontainer productservice
+
+
 container flow 
 Write dockerFile
 Build docker image
