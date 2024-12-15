@@ -18,6 +18,16 @@ run docker images
     docker run -d -p 8080:80 --name productservicecontainer productservice
 run docker images interactive mode
     docker run -it --rm -p 8080:8080 --name productservicecontainer productservice
+stop docker image
+    docker stop productservicecontainer
+login locally to docker
+    docker login (will auto automatically if logged in on desktop)
+tag image
+    docker tag productservice ronasor1/productservice:latest
+push image
+    docker push ronasor1/productservice:latest
+
+dockerhub: https://hub.docker.com/repository/docker/ronasor1/productservice/general
 
 
 container flow 
@@ -28,3 +38,83 @@ test run locally
 tag docker container
 publish image to regsitrey such as dockrHub
 deploy to cloud
+
+
+##
+pushing docker image to amazon ECR
+ 1. create amazon ECR repo
+ 2. authenticate docker to amazon ecr registery
+ 3. builder docker image
+ 4. tag docker image
+ 5. push docker to amazon ecr
+ create amazon ECR:
+    name - productservice
+
+authenticate docker to amazon ECR registery 
+    aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 688567289104.dkr.ecr.eu-north-1.amazonaws.com
+
+build docer image
+    docker build -t productservice .
+
+tag docker image
+    docker tag productservice:latest 688567289104.dkr.ecr.eu-north-1.amazonaws.com/productservice
+
+push docker image
+    docker push 688567289104.dkr.ecr.eu-north-1.amazonaws.com/productservice:latest
+
+
+##
+starting with minikube
+    start docker desktop
+    start minikube
+    interact with cluster
+        kubectl get po -A
+    alternative
+        minikube kubectl -- g po -AWS
+    see k8s is up and running
+
+    see dashboard
+        minikube dashboard
+
+
+ASP.NET container expose port - configur to listen - 0.0.0.0:8080
+    >directly into program
+        var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+        var url = $"http://0.0.0.0:{port}";
+        builder.WebHost.UseUrls(url);
+    >(alternative) docker dockerFile
+        add new vairable into dockerFile
+            https://github.com/dotnet/dotnet-docker/issues/3968
+        "environmentVariables" :{
+            "ASPNETCORE_URL": "https://+:443;http://+:8080",
+            "ASPNETCORE_HTTPS_PORT": "44360"
+        },
+    >k8s deployment ENV variable inject
+        https://www.youtube.com/watch?v=63FLcPHUCPM
+        dk 46.11
+
+        kestrel__endpoints__http__url
+        http://0.0.0.0:8080
+
+PODS
+    the pod is a container running in kubernetes.
+    a pod is bascically a running container on a Node or VM. 
+    pod definition cna be created via kubectl command impoeratively from arguments or declarively from a configrationn file.
+    use kubectl command to write our configruation files.
+
+creating pod definition
+    establish yaml file
+    view if pods are live
+        kubectl get pod
+    open terminal to watch created pods on k8s
+        kubectl get pods -watch
+    apply configration
+        kubectl apply -f product-pod.yaml
+        - will create a pod in kubernetes
+    expose the pod
+        kubectl port-forward product-pod 8080:8080
+
+cleanup
+    kubectl delete pod product-pod
+    or
+    kubectl delete -f .\product-pod.yaml

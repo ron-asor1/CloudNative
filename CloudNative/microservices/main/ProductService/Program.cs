@@ -1,5 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<List<Product>>();
+
+//Kubernetes deployment
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+    var url = $"http://0.0.0.0:{port}";
+    builder.WebHost.UseUrls(url);
+
 var app = builder.Build();
 
 SeedData(app.Services.GetRequiredService<List<Product>>());
