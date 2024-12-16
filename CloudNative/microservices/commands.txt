@@ -158,3 +158,30 @@ congirue configMap & secret
     create secret-key encoded in base64, using bash
         echo -n 'product-api-key' | base64
         cHJvZHVjdC1hcGkta2V5
+    
+    >additional command
+        kubectl get secret
+        kubectl get configmap
+
+modify .NET application to read these enironment variables and use them as needed.
+there are typical ENV variable that we can use into our application
+    goto program.cs
+
+    var logLevel = Environment.GetEnvironmentVariable("LOG_LEVEL");
+    VAR apiKey = Environment.GetEnvironmentVariable("API_KEY");
+
+>>scale container instance in kubernetes
+    we can manually scale directly from yaml file -recplias
+    or while instance running
+        to watch service live
+            kubectl get pod -w
+    scale up
+        kubectl scale --replicas=5 deployment/product  
+    scale down
+        kubectl scale --replicas=1 deployment/product  
+
+>>if theres a failure, k8s will auto restart the pods that were running
+    we can manually delete a pod and validate k8s restarted a new pod to always match the number of replicas defined
+        kubectl delete pod <pod name>
+    then check pods status
+        kube get pod

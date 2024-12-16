@@ -18,6 +18,17 @@ spec:
         image: ronasor1/productservice:latest
         ports:
         - containerPort: 8080
+        env:
+        - name: LOG_LVEL
+          valueFrom:
+            configMapKeyRef:
+              name: log-level-configmap
+              key: log_level
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: api-key-secret
+              key: api_key
 
 ---
 #configure service connection to a targeted port
@@ -54,7 +65,7 @@ spec:
 
 ---
 #configure basic configMap
-apiVesion: v1
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: log-level-configmap

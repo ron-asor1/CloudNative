@@ -8,6 +8,9 @@ builder.Services.AddSingleton<List<Product>>();
 
 var app = builder.Build();
 
+//var logLevel = Environment.GetEnvironmentVariable("LOG_LEVEL");
+//var apiKey = Environment.GetEnvironmentVariable("API_KEY");
+
 SeedData(app.Services.GetRequiredService<List<Product>>());
 
 app.MapGet("/api/products", (List<Product> products) => {
