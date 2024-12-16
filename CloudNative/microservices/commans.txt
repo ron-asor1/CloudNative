@@ -106,14 +106,26 @@ creating pod definition
     establish yaml file
     view if pods are live
         kubectl get pod
+    view all kubectl traffic
+        kubectl get all
     open terminal to watch created pods on k8s
         kubectl get pods -watch
-    apply configration
+apply configration for single pod
         kubectl apply -f product-pod.yaml
         - will create a pod in kubernetes
     expose the pod
         kubectl port-forward product-pod 8080:8080
+apply configration for deployment
+        kubectl apply -f product-deploy.yaml
+        - will create a pod in kubernetes
+apply configration for service
+        kubectl apply -f product-service.yaml
+        - will create a pod in kubernetes
+        kubectl port-forward service/product-service 7080:8080
+>>expose service with minikube 
+    minkube service product-service
 
+    
 cleanup
     kubectl delete pod product-pod
     or
