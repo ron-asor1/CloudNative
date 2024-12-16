@@ -1,3 +1,4 @@
+#deploy configuration of a container
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,6 +20,7 @@ spec:
         - containerPort: 8080
 
 ---
+#configure service connection to a targeted port
 apiVersion: v1
 kind: Service
 metadata:
@@ -32,6 +34,7 @@ spec:
       targetPort: 8080
 #   type: LoadBalancer
 ---
+#allow ingress configuration to route netwrok
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -39,11 +42,31 @@ metadata:
 spec:
   rules:
   - host: product.local
-    path:
-    - path: /
-      pathType: Prefix
-      backend:
-        service:
-          name: product-service
-          port:
-            number: 8080
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: product-service
+            port:
+              number: 8080
+
+---
+#configure basic configMap
+apiVesion: v1
+kind: ConfigMap
+metadata:
+  name: log-level-configmap
+data:
+  log_level: "Information"
+
+---
+#configure secret key
+apiVersion: v1
+kind: Secret
+metadata:
+  name: api-key-secret
+type: Opaque
+data:
+  api_key: cHJvZHVjdC1hcGkta2V5

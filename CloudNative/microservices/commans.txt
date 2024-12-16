@@ -125,8 +125,36 @@ apply configration for service
 >>expose service with minikube 
     minkube service product-service
 
-    
+
 cleanup
     kubectl delete pod product-pod
     or
     kubectl delete -f .\product-pod.yaml
+
+>>ingress - Define set of rules when allowing external source to reach services and using api calls.
+ 
+getMinikube IP 
+    minikube ip : 192.168.49.2
+
+> edit host 
+#Added by minikube custome domain 
+192.168.49.2 product.local
+
+deploy of ingress:
+    1. first activate ingress addon into minikube installment
+        minikube addons list
+        minikube addons enable ingress
+        minikube addons enable ingress-dns
+
+    kubectl get ingress
+
+    2. track minikube (in sepearate terminal)
+    minikube tunnel
+
+    ingress reach for products service:
+    http://product.local/api/products
+
+congirue configMap & secret
+    create secret-key encoded in base64, using bash
+        echo -n 'product-api-key' | base64
+        cHJvZHVjdC1hcGkta2V5
