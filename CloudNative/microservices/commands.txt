@@ -1,187 +1,365 @@
-Commands
+## Commands
 
+### .NET Commands
+
+**Create and Run a .NET Web Application:**
+```
 dotnet new web -n ProductService
 dotnet run
+```
 
-endpoints:
-
+**Endpoints:**
+```
 http://localhost:
+```
 
+---
 
-##container
+## Container
 
-Run on same level as dockerfile:
-    docker build -t productservice .
-See list of images
-    docker images
-run docker images   
-    docker run -d -p 8080:80 --name productservicecontainer productservice
-run docker images interactive mode
-    docker run -it --rm -p 8080:8080 --name productservicecontainer productservice
-stop docker image
-    docker stop productservicecontainer
-login locally to docker
-    docker login (will auto automatically if logged in on desktop)
-tag image
-    docker tag productservice ronasor1/productservice:latest
-push image
-    docker push ronasor1/productservice:latest
+### Build and Run Docker Image
 
-dockerhub: https://hub.docker.com/repository/docker/ronasor1/productservice/general
+**Run on the same level as the Dockerfile:**
+```
+docker build -t productservice .
+```
 
+**See list of images:**
+```
+docker images
+```
 
-container flow 
-Write dockerFile
-Build docker image
-run docker container
-test run locally
-tag docker container
-publish image to regsitrey such as dockrHub
-deploy to cloud
+**Run Docker image:**
+```
+docker run -d -p 8080:80 --name productservicecontainer productservice
+```
 
+**Run Docker image in interactive mode:**
+```
+docker run -it --rm -p 8080:8080 --name productservicecontainer productservice
+```
 
-##
-pushing docker image to amazon ECR
- 1. create amazon ECR repo
- 2. authenticate docker to amazon ecr registery
- 3. builder docker image
- 4. tag docker image
- 5. push docker to amazon ecr
- create amazon ECR:
-    name - productservice
+**Stop Docker image:**
+```
+docker stop productservicecontainer
+```
 
-authenticate docker to amazon ECR registery 
-    aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 688567289104.dkr.ecr.eu-north-1.amazonaws.com
+**Login locally to Docker:**
+```
+docker login
+```
+> Automatically logs in if already signed in on the desktop.
 
-build docer image
-    docker build -t productservice .
+**Tag image:**
+```
+docker tag productservice ronasor1/productservice:latest
+```
 
-tag docker image
-    docker tag productservice:latest 688567289104.dkr.ecr.eu-north-1.amazonaws.com/productservice
+**Push image:**
+```
+docker push ronasor1/productservice:latest
+```
 
-push docker image
-    docker push 688567289104.dkr.ecr.eu-north-1.amazonaws.com/productservice:latest
+**DockerHub:**
+```
+https://hub.docker.com/repository/docker/ronasor1/productservice/general
+```
 
+### Container Flow
+1. Write Dockerfile
+2. Build Docker image
+3. Run Docker container
+4. Test run locally
+5. Tag Docker container
+6. Publish image to registry such as DockerHub
+7. Deploy to cloud
 
-##
-starting with minikube
-    start docker desktop
-    start minikube
-    interact with cluster
-        kubectl get po -A
-    alternative
-        minikube kubectl -- g po -AWS
-    see k8s is up and running
+---
 
-    see dashboard
-        minikube dashboard
+## Pushing Docker Image to Amazon ECR
 
+### Steps:
+1. Create Amazon ECR repository
+2. Authenticate Docker to Amazon ECR registry
+3. Build Docker image
+4. Tag Docker image
+5. Push Docker image to Amazon ECR
 
-ASP.NET container expose port - configur to listen - 0.0.0.0:8080
-    >directly into program
-        var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-        var url = $"http://0.0.0.0:{port}";
-        builder.WebHost.UseUrls(url);
-    >(alternative) docker dockerFile
-        add new vairable into dockerFile
-            https://github.com/dotnet/dotnet-docker/issues/3968
-        "environmentVariables" :{
-            "ASPNETCORE_URL": "https://+:443;http://+:8080",
-            "ASPNETCORE_HTTPS_PORT": "44360"
-        },
-    >k8s deployment ENV variable inject
-        https://www.youtube.com/watch?v=63FLcPHUCPM
-        dk 46.11
+**Create Amazon ECR Repository:**
+```
+Name - productservice
+```
 
-        kestrel__endpoints__http__url
-        http://0.0.0.0:8080
+**Authenticate Docker to Amazon ECR registry:**
+```
+aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 688567289104.dkr.ecr.eu-north-1.amazonaws.com
+```
 
-PODS
-    the pod is a container running in kubernetes.
-    a pod is bascically a running container on a Node or VM. 
-    pod definition cna be created via kubectl command impoeratively from arguments or declarively from a configrationn file.
-    use kubectl command to write our configruation files.
+**Build Docker image:**
+```
+docker build -t productservice .
+```
 
-creating pod definition
-    establish yaml file
-    view if pods are live
-        kubectl get pod
-    view all kubectl traffic
-        kubectl get all
-    open terminal to watch created pods on k8s
-        kubectl get pods -watch
-apply configration for single pod
-        kubectl apply -f product-pod.yaml
-        - will create a pod in kubernetes
-    expose the pod
-        kubectl port-forward product-pod 8080:8080
-apply configration for deployment
-        kubectl apply -f product-deploy.yaml
-        - will create a pod in kubernetes
-apply configration for service
-        kubectl apply -f product-service.yaml
-        - will create a pod in kubernetes
-        kubectl port-forward service/product-service 7080:8080
->>expose service with minikube 
-    minkube service product-service
+**Tag Docker image:**
+```
+docker tag productservice:latest 688567289104.dkr.ecr.eu-north-1.amazonaws.com/productservice
+```
 
+**Push Docker image:**
+```
+docker push 688567289104.dkr.ecr.eu-north-1.amazonaws.com/productservice:latest
+```
 
-cleanup
-    kubectl delete pod product-pod
-    or
-    kubectl delete -f .\product-pod.yaml
+---
 
->>ingress - Define set of rules when allowing external source to reach services and using api calls.
- 
-getMinikube IP 
-    minikube ip : 192.168.49.2
+## Starting with Minikube
 
-> edit host 
-#Added by minikube custome domain 
+### Steps:
+1. Start Docker Desktop
+2. Start Minikube
+
+**Interact with cluster:**
+```
+kubectl get po -A
+```
+> Alternative:
+```
+minikube kubectl -- get po -A
+```
+
+**Verify Kubernetes is running:**
+```
+minikube dashboard
+```
+
+---
+
+## Exposing Ports in ASP.NET Container
+
+### Configure to Listen on `0.0.0.0:8080`:
+
+**Directly in Program:**
+```csharp
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var url = $"http://0.0.0.0:{port}";
+builder.WebHost.UseUrls(url);
+```
+
+**Using Dockerfile Environment Variables:**
+```json
+"environmentVariables": {
+  "ASPNETCORE_URLS": "https://+:443;http://+:8080",
+  "ASPNETCORE_HTTPS_PORT": "44360"
+}
+```
+> [See GitHub Issue](https://github.com/dotnet/dotnet-docker/issues/3968)
+
+**Inject Environment Variables in Kubernetes Deployment:**
+```
+kestrel__endpoints__http__url=http://0.0.0.0:8080
+```
+
+---
+
+## Kubernetes Pods
+
+**Definition:**
+A pod is a container running in Kubernetes. Pods can be created:
+- Imperatively via `kubectl` commands.
+- Declaratively via configuration files.
+
+### Creating Pod Definition
+
+**Establish YAML file**
+
+**View Pods:**
+```
+kubectl get pod
+```
+
+**View all Kubernetes traffic:**
+```
+kubectl get all
+```
+
+**Watch pods being created:**
+```
+kubectl get pods -watch
+```
+
+### Apply Configuration
+
+**Create a Pod:**
+```
+kubectl apply -f product-pod.yaml
+```
+
+**Expose the Pod:**
+```
+kubectl port-forward product-pod 8080:8080
+```
+
+**Deployments:**
+```
+kubectl apply -f product-deploy.yaml
+```
+
+**Services:**
+```
+kubectl apply -f product-service.yaml
+kubectl port-forward service/product-service 7080:8080
+```
+
+**Expose service with Minikube:**
+```
+minikube service product-service
+```
+
+### Cleanup
+
+**Delete Pod:**
+```
+kubectl delete pod product-pod
+```
+> Or:
+```
+kubectl delete -f ./product-pod.yaml
+```
+
+---
+
+## Ingress
+
+**Define rules for external access to services via API calls.**
+
+**Get Minikube IP:**
+```
+minikube ip
+```
+> Example:
+```
+192.168.49.2
+```
+
+**Edit Host File:**
+```
+# Added by Minikube custom domain
 192.168.49.2 product.local
+```
 
-deploy of ingress:
-    1. first activate ingress addon into minikube installment
-        minikube addons list
-        minikube addons enable ingress
-        minikube addons enable ingress-dns
+### Deploy Ingress:
 
-    kubectl get ingress
+1. Activate Ingress add-on:
+```
+minikube addons list
+minikube addons enable ingress
+minikube addons enable ingress-dns
+```
 
-    2. track minikube (in sepearate terminal)
-    minikube tunnel
+2. Track Minikube:
+```
+minikube tunnel
+```
 
-    ingress reach for products service:
-    http://product.local/api/products
+3. Reach Product Service via Ingress:
+```
+http://product.local/api/products
+```
 
-congirue configMap & secret
-    create secret-key encoded in base64, using bash
-        echo -n 'product-api-key' | base64
-        cHJvZHVjdC1hcGkta2V5
-    
-    >additional command
-        kubectl get secret
-        kubectl get configmap
+---
 
-modify .NET application to read these enironment variables and use them as needed.
-there are typical ENV variable that we can use into our application
-    goto program.cs
+## ConfigMap & Secret
 
-    var logLevel = Environment.GetEnvironmentVariable("LOG_LEVEL");
-    VAR apiKey = Environment.GetEnvironmentVariable("API_KEY");
+**Create a secret key encoded in Base64:**
+```
+echo -n 'product-api-key' | base64
+```
+> Output:
+```
+cHJvZHVjdC1hcGkta2V5
+```
 
->>scale container instance in kubernetes
-    we can manually scale directly from yaml file -recplias
-    or while instance running
-        to watch service live
-            kubectl get pod -w
-    scale up
-        kubectl scale --replicas=5 deployment/product  
-    scale down
-        kubectl scale --replicas=1 deployment/product  
+**Additional Commands:**
+```
+kubectl get secret
+kubectl get configmap
+```
 
->>if theres a failure, k8s will auto restart the pods that were running
-    we can manually delete a pod and validate k8s restarted a new pod to always match the number of replicas defined
-        kubectl delete pod <pod name>
-    then check pods status
-        kube get pod
+### Modify .NET Application to Use Environment Variables:
+
+**In `program.cs`:**
+```csharp
+var logLevel = Environment.GetEnvironmentVariable("LOG_LEVEL");
+var apiKey = Environment.GetEnvironmentVariable("API_KEY");
+```
+
+---
+
+## Scaling Containers in Kubernetes
+
+**Manually Scale via YAML File:**
+- Modify replicas.
+
+**Scale While Running:**
+
+**Watch Live:**
+```
+kubectl get pod -w
+```
+
+**Scale Up:**
+```
+kubectl scale --replicas=5 deployment/product
+```
+
+**Scale Down:**
+```
+kubectl scale --replicas=1 deployment/product
+```
+
+**Failure Recovery:**
+- Kubernetes auto-restarts failed pods to match replica count.
+
+**Manually Test Auto-restart:**
+```
+kubectl delete pod <pod-name>
+```
+> Then verify:
+```
+kubectl get pod
+```
+
+---
+
+## Deploy Application
+
+**Sample Deployment:**
+```
+kubectl create deployment hello-minikube --image=ronasor1/productservice:latest
+kubectl expose deployment hello-minikube --type=NodePort --port=8080
+```
+
+**Access Service:**
+```
+kubectl get services hello-minikube
+minikube service hello-minikube
+```
+
+**Port-forward:**
+```
+kubectl port-forward service/hello-minikube 7080:8080
+```
+> Check:
+```
+http://localhost:7080/api/products
+```
+
+**Cleanup Local Machine:**
+```
+# Delete host entry
+c:/windows/system32/drivers/etc/hosts
+
+# Delete Kubernetes resources
+kubectl delete -f ./product.yaml
+kubectl delete deployment hello-minikube
+kubectl delete service hello-minikube
